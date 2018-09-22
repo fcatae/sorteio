@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista</title>
+</head>
+<body> 
+    <style>
+        .yellow {
+            background-color: yellow;
+        }
+    </style>
+    <button id="stop">STOP</button>
+    <ul id='lista'>
+    </ul>
+    <script>
+        var nomes = ['Alexandre', 'Beatriz', 'Camilo', 'Debora', 'Edvaldo', 'Fabricio', 'Karoline', 'Lucas', 'Marcel'];
+        var lista = document.getElementById('lista');
+
+        nomes.forEach( nome => {
+            var item = document.createElement('li');
+            item.textContent = nome;
+            lista.appendChild(item);
+        });
+
+        var currentItem = 0;
+        var maxItems = nomes.length;
+
+        var n = 1;
+
+        function nocolor(n) {
+            var selectedItem = document.querySelector('#lista li:nth-child(' + n + ')');
+            selectedItem.classList.remove('yellow')
+        }
+
+        function highlight(n) {
+            var selectedItem = document.querySelector('#lista li:nth-child(' + n + ')');
+            selectedItem.classList.add('yellow')
+        }
+        
+        var handle = {};
+
+        function start() {
+                handle = setInterval( (o)=> {
+                
+                var lastN = n;
+
+                n = Math.floor( Math.random() * maxItems) + 1;
+                if( n > maxItems) {
+                    n = (n % maxItems);
+                }
+
+                nocolor(lastN);
+                highlight(n);
+
+            }, 100);
+        }
+
+        start();
+
+        var stop = document.getElementById('stop');
+        stop.onclick  = () => {
+            if( handle != null ) {
+                stop.textContent = "START";
+                clearInterval(handle);
+                handle = null;
+
+
+                setTimeout( () => {
+                    alert("PARABENS " + nomes[n-1])
+                }, 10);
+
+            } else {
+                stop.textContent = "STOP";
+                start();
+            }
+        };
+
+    </script>
+</body>
+</html>
