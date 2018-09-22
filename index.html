@@ -14,8 +14,10 @@
     <button id="stop">STOP</button>
     <ul id='lista'>
     </ul>
+    <script src="nomes.js"></script>
     <script>
-        var nomes = ['Alexandre', 'Beatriz', 'Camilo', 'Debora', 'Edvaldo', 'Fabricio', 'Karoline', 'Lucas', 'Marcel'];
+        var nomes = listaJson.map( item => item.nome );
+        //var nomes = ['Alexandre', 'Beatriz', 'Camilo', 'Debora', 'Edvaldo', 'Fabricio', 'Karoline', 'Lucas', 'Marcel'];
         var lista = document.getElementById('lista');
 
         nomes.forEach( nome => {
