@@ -3,17 +3,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./css/bootstrap.css" rel="stylesheet">
     <title>Lista</title>
 </head>
 <body> 
     <style>
-        .yellow {
-            background-color: yellow;
+        .color {
+            background-color: greenyellow;
+        }
+
+        .nome { 
+            margin: 2px;
+            height: 3em;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 2em;
+            align-content: center;
+        }
+
+        .title {
+            display: flex;
+            margin: 2em;
+            justify-content: center;
         }
     </style>
-    <button id="stop">STOP</button>
-    <ul id='lista'>
-    </ul>
+    <div class="container">
+        <div class="row title" >
+            <h1 class="col-md-2" style="flex-grow:1;">Sorteio</h1>
+            <button class="col-md-2" style="margin: 1em" id="stop">STOP</button>
+
+        </div>
+        <div class="row" id='lista'></div>
+    </div>
     <script src="nomes.js"></script>
     <script>
         var nomes = listaJson.map( item => item.name );
@@ -21,24 +42,27 @@
         var lista = document.getElementById('lista');
 
         nomes.forEach( nome => {
-            var item = document.createElement('li');
+            var item = document.createElement('div');
             item.textContent = nome;
+            item.classList.add("col-md-2")
+            item.classList.add("nome")
             lista.appendChild(item);
         });
 
         var currentItem = 0;
         var maxItems = nomes.length;
 
-        var n = 1;
+        var n = -1;
 
         function nocolor(n) {
-            var selectedItem = document.querySelector('#lista li:nth-child(' + n + ')');
-            selectedItem.classList.remove('yellow')
+            var selectedItem = document.querySelector('#lista div:nth-child(' + n + ')');
+
+            selectedItem.classList.remove('color')
         }
 
         function highlight(n) {
-            var selectedItem = document.querySelector('#lista li:nth-child(' + n + ')');
-            selectedItem.classList.add('yellow')
+            var selectedItem = document.querySelector('#lista div:nth-child(' + n + ')');
+            selectedItem.classList.add('color')
         }
         
         var handle = {};
@@ -48,7 +72,9 @@
                 
                 var lastN = n;
 
-                n = Math.floor( Math.random() * maxItems) + 1;
+                n = Math.floor( Math.random() * maxItems);
+
+                // n = n + 1;
                 if( n > maxItems) {
                     n = (n % maxItems);
                 }
